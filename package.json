@@ -1,0 +1,23 @@
+{
+  "name": "electron-first-steps",
+  "version": "1.0.0",
+  "description": "Exercises from the book Developing an Electron Edge",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \\\"Error: no test specified\\\" && exit 1\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Javiredondo/electron-first-steps.git"
+  },
+  "author": "Javier Redondo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Javiredondo/electron-first-steps/issues"
+  },
+  "homepage": "https://github.com/Javiredondo/electron-first-steps#readme",
+  "devDependencies": {
+    "electron-prebuilt": "^1.4.13"
+  }
+}
