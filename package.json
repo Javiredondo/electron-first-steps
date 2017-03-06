@@ -19,5 +19,8 @@
   "homepage": "https://github.com/Javiredondo/electron-first-steps#readme",
   "devDependencies": {
     "electron-prebuilt": "^1.4.13"
+  },
+  "dependencies": {
+    "marked": "^0.3.6"
   }
 }
