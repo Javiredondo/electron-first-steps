@@ -4,6 +4,7 @@ const {dialog} = remote; // fixed incorrect usage from book
 const fs = require('fs');
 const shell = require('electron').shell;
 const ipcRenderer = require('electron').ipcRenderer;
+const platform = require('./platform');
 
 const container = document.querySelector('.container')
 const editor = document.querySelector('.editor textarea');
@@ -11,6 +12,24 @@ const preview = document.querySelector('.preview');
 const openFileLink = document.querySelector('a.open-file');
 const saveFileLink = document.querySelector('a.save-file');
 const showFileInFolderLink = document.querySelector('a.show-file-in-folder');
+document.body.classList.add('platform-' + platform.name);
+
+var forEach = function(selector, callback) {
+  return [].forEach.call(document.querySelectorAll(selector), callback);
+};
+
+var actions = ['minimize', 'maximize', 'restore', 'close'];
+
+forEach('.window-action', (windowAction) => {
+  windowAction.onclick = (e) => {
+    actions.forEach((actionName) => {
+      var classNameSegment = actionName;
+      if(windowAction.classList.contains('window-action-' + classNameSegment)) {
+        ipcRenderer.send('main-window', classNameSegment);
+      }
+    });
+  };
+});
 
 var currentFile = remote.getGlobal('fileToOpen') || null;
 
@@ -20,6 +39,14 @@ if(currentFile) {
 
 ipcRenderer.on('open-file', (event, filePath) => {
   openFile(filePath);
+});
+
+ipcRenderer.on('maximized', () => {
+  document.body.classList.add('window--is-maximized');
+});
+
+ipcRenderer.on('restored', () => {
+  document.body.classList.remove('window--is-maximized');
 });
 
 marked.setOptions({
